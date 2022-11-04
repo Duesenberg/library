@@ -37,7 +37,7 @@ body {
   background-color: #06b6d4;
   grid-area: 1 / 1 / 2 / 3;
   display: grid;
-  grid-template-columns: 1fr 2.5fr 2.5fr;
+  grid-template-columns: 1fr 5fr;
 }
 
 .logo {
@@ -56,44 +56,10 @@ body {
   grid-area: 1 / 2 / 2 / 3;
   font-family: 'Pixel', 'Roboto', sans-serif;
   font-size: 2.7rem;
-  color: #cffafe;
+  color: #fcd34d;
   padding: .5rem;
   align-self: center;
   justify-self: center;
-}
-
-.title:hover {
-  color: #fcd34d;
-}
-
-.actions {
-  grid-area: 1 / 3 / 2 / 4;
-  align-self: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex: 1;
-  gap: .8rem;
-  padding: .5rem;
-}
-.actions button {
-  padding: .7rem .8rem;
-  font-family: "Press Start";
-  font-size: .7rem;
-  color: #06b6d4;
-  background-color: white;
-  border: none;
-  border-radius: .8rem;
-}
-
-.actions button:hover {
-  scale: 1.05;
-  background-color: #fcd34d;
-  color: white;
-}
-
-.actions button:active {
-  scale: 1;
 }
 
 /* ----------------------------------SIDEBAR-------------------------------- */
@@ -101,6 +67,61 @@ body {
 .sidebar {
   background-color: #06b6d4;
   grid-area: 2 / 1 / 3 / 2;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+}
+
+.sidebar label, .sidebar input, .sidebar button, .sidebar .sort {
+  font-family: "Press Start", "Roboto" ,sans-serif;
+  font-size: .7rem;
+  color: #cffafe;
+}
+
+.sidebar label, .sort {
+  padding-bottom: .5rem;
+  padding-left: 1rem;
+}
+
+input[type = "search"] {
+  appearance: none;
+  width: 90%;
+  padding: .5rem;
+  margin-bottom: 1rem;
+  outline: none;
+  border: .15rem solid transparent;
+  border-radius: .8rem;
+  color: #06b6d4;
+  align-self: center;
+}
+
+input[type = "search"]:hover, input[type = "search"]:focus {
+  border: .15rem solid #fcd34d;
+}
+
+.sidebar button {
+  padding: .7rem .8rem;
+  font-family: "Press Start";
+  font-size: .7rem;
+  color: #06b6d4;
+  background-color: white;
+  border: none;
+  border-radius: .8rem;
+  margin: .3rem .7rem;
+}
+
+.sidebar button:hover {
+  scale: 1.05;
+  background-color: #fcd34d;
+  color: white;
+}
+
+.sidebar button:active {
+  scale: 1;
+}
+
+.sidebar .new-book {
+  margin-top: 2rem;
 }
 
 /* ----------------------------------CONTENT-------------------------------- */
@@ -108,4 +129,167 @@ body {
 .content {
   background-color: #cffafe;
   grid-area: 2 / 2 / 3 / 3;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 280px);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  background-color: #06b6d4;
+  display: grid;
+  grid-template: repeat(7, 1fr) / repeat(2, 1fr);
+  padding: 1rem;
+  gap: .5rem;
+}
+
+.card div{
+  color: white;
+  font-family: 'Press Start';
+  font-size: .55rem;
+}
+
+.card button {
+  background-color: white;
+  color: #06b6d4;
+  font-family: 'Press Start';
+  font-size: .55rem;
+  border: none;
+  border-radius: .8rem;
+  padding: .3rem .1rem;
+}
+
+.card button:hover {
+  scale: 1.05;
+  background-color: #fcd34d;
+  color: white;
+}
+
+.card button:active {
+  scale: 1;
+}
+
+.card .is-read {
+  background-color: #fcd34d;
+  color: white;
+}
+
+.card .title {
+  grid-area: 1 / 1 / 2 / 3;
+  font-family: 'Pixel', sans-serif;
+  font-size: .9rem;
+  text-align: center;
+  color: #fcd34d;
+}
+
+.author {
+  grid-row: 2 / 3;
+  grid-column: 1 / 3;
+}
+
+.pages {
+  grid-row: 3 / 4;
+  grid-column: 1 / 3;
+}
+
+.year {
+  grid-row: 4 / 5;
+  grid-column: 1 / 3;
+}
+
+.category {
+  grid-row: 5 / 6;
+  grid-column: 1 / 3;
+}
+
+.read {
+  grid-row: 6 / 7;
+  grid-column: 1 / 3;
+}
+
+.read-button {
+  grid-area: 7 / 1 / 8 / 2;
+}
+
+.remove-button {
+  grid-area: 7 / 2 / 8 / 3;
+}
+
+/* ----------------------------------FORM---------------------------------- */
+
+.popup-form {
+  display: none;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  border: .2rem solid #fcd34d;
+}
+
+.form-container {
+  background-color: #06b6d4;
+  padding: 1rem;
+  display: grid;
+  grid-template: repeat(12, auto) / repeat(2, 1fr);
+  gap: .5rem;
+}
+
+.form-container legend, .form-container label, .form-container input {
+  grid-column: 1 / 3;
+}
+
+.form-container label {
+  align-self: flex-end;
+}
+
+.form-container button {
+  margin-top: .3rem;
+  font-family: 'Press Start', sans-serif;
+  font-size: .55rem;
+  background-color: white;
+  color: #06b6d4;
+  border: none;
+  border-radius: .8rem;
+  padding: .5rem .1rem;
+}
+
+.form-container button:hover {
+  scale: 1.05;
+  background-color: #fcd34d;
+  color: white;
+}
+
+.form-container button:active {
+  scale: 1;
+}
+
+input, label {
+  font-family: 'Press Start', sans-serif;
+  font-size: .55rem;
+}
+
+label {
+  color: white;
+}
+
+legend {
+  font-family: 'Pixel';
+  color: #fcd34d;
+  font-size: .9rem;
+  padding-bottom: .5rem;
+}
+
+.form-container input[type = "text"] {
+  appearance: none;
+  padding: .5rem;
+  outline: none;
+  border: .15rem solid transparent;
+  border-radius: .8rem;
+  color: #06b6d4;
+  align-self: center;
+}
+
+.form-container input[type = "text"]:hover, 
+.form-container input[type = "text"]:focus {
+  border: .15rem solid #fcd34d;
 }
