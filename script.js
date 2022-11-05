@@ -51,6 +51,8 @@ function displayBooks () {
   for (i=0; i<myLibrary.length; i++) {
     const card = document.createElement('div');
     card.classList.add('card');
+    card.classList.add('child');
+    card.setAttribute('data-index', i);
     content.appendChild(card);
 
     const title = document.createElement('div');
@@ -80,10 +82,10 @@ function displayBooks () {
 
     const readButton = document.createElement('button');
     readButton.classList.add('read-button');
-    readButton.setAttribute('id', `${i}`);
+    readButton.setAttribute('data-readindex', i);
     readButton.value = i;
     readButton.setAttribute('onclick', `arrayIndex = this.value; readStatus ();`);
-    if (myLibrary[i].read == true) {
+     if (myLibrary[i].read == true) {
       readButton.classList.add('is-read');
       readButton.textContent = 'Read';
     } else {
@@ -93,23 +95,18 @@ function displayBooks () {
 
     const removeButton = document.createElement('button');
     removeButton.classList.add('remove-button');
+    removeButton.value = i;
+    removeButton.setAttribute('onclick', `arrayIndex = this.value; removeBookFromLibrary ();`);
     removeButton.textContent = "Remove";
     card.appendChild(removeButton);
   }
 }
 
-/* change read status of book */
-function readStatus () {
-  const readButton = document.getElementById(`${arrayIndex}`);
-  if (myLibrary[arrayIndex].read == true) {
-    myLibrary[arrayIndex].read = false;
-    readButton.classList.toggle('is-read');
-    readButton.textContent = "Not Read";
-  } else {
-    myLibrary[arrayIndex].read = true;    
-    readButton.classList.toggle('is-read');
-    readButton.textContent = "Read";
-  }
+/* remove all books from screen */
+function removeDisplayedBooks () {
+  const card = document.querySelectorAll('.child');
+
+  card.forEach((div) => content.removeChild(div))
 }
 
 function openForm() {
@@ -120,12 +117,66 @@ function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
 
-function Book() {
-  // the constructor...
+//prevent form submission
+const addButton = document.querySelector(".add-button");
+addButton.addEventListener("click", Click, false);
+function Click(event) {
+  event.preventDefault();
 }
 
+//constructor
+function Book(name, author, pages, year, category, read) {
+  this.name = name
+  this.author = author
+  this.pages = pages
+  this.year = year
+  this.category = category
+  this.read = read;
+}
+
+/* get the values from the form, create object and push it in myLibrary.
+then display the library on screen again with the object added */
 function addBookToLibrary() {
-  // do stuff here
+  const name = document.getElementById('title').value;
+  const author = document.getElementById('author').value;
+  const pages = document.getElementById('pages').value;
+  const year = document.getElementById('year').value;
+  const category = document.getElementById('category').value;
+  const isRead = document.getElementById('read');
+  let read;
+  (isRead.checked) ? read = true : read = false;
+
+  const book = new Book (name, author, pages, year, category, read);
+
+  myLibrary.push(book);
+
+  removeDisplayedBooks();
+  displayBooks();
+}
+
+/* removes the object from the array, removes all DOM elements from screen
+and displays them again. This is so that the data-index values are updated */
+function removeBookFromLibrary () {
+  const card = document.querySelector(`[data-index = "${arrayIndex}"]`);
+  myLibrary.splice(arrayIndex, 1);
+  content.removeChild(card);
+
+  removeDisplayedBooks();
+  displayBooks();
+}
+
+/* change read status of book */
+function readStatus () {
+  const readButton = document.querySelector(`[data-readindex = "${arrayIndex}"]`);
+  if (myLibrary[arrayIndex].read == true) {
+    myLibrary[arrayIndex].read = false;
+    readButton.classList.toggle('is-read');
+    readButton.textContent = "Not Read";
+  } else {
+    myLibrary[arrayIndex].read = true;    
+    readButton.classList.toggle('is-read');
+    readButton.textContent = "Read";
+  }
 }
 
 displayBooks ();
