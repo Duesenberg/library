@@ -44,6 +44,18 @@ let myLibrary = [
   },
 ];
 
+//constructor
+class Book {
+  constructor (name, author, pages, year, category, read) {
+    this.name = name
+    this.author = author
+    this.pages = pages
+    this.year = year
+    this.category = category
+    this.read = read;
+    }
+}
+
 const content = document.querySelector('.content');
 
 /* display the books on screen*/
@@ -124,15 +136,6 @@ function Click(event) {
   event.preventDefault();
 }
 
-//constructor
-function Book(name, author, pages, year, category, read) {
-  this.name = name
-  this.author = author
-  this.pages = pages
-  this.year = year
-  this.category = category
-  this.read = read;
-}
 
 /* get the values from the form, create object and push it in myLibrary.
 then display the library on screen again with the object added */
