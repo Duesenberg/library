@@ -183,3 +183,22 @@ function readStatus () {
 }
 
 displayBooks ();
+
+/* checking for validity */
+
+const validityCh = () => {
+  const titleField = document.querySelector('#title');
+  const authorField = document.querySelector('#author');
+  const pagesField = document.querySelector('#pages');
+  const yearField = document.querySelector('#year');
+  const categoryField = document.querySelector('#category');
+
+  if(!(titleField.validity.valueMissing && authorField.validity.valueMissing && 
+    pagesField.validity.valueMissing && yearField.validity.valueMissing && 
+    categoryField.validity.valueMissing)) {
+      addBookToLibrary();
+      closeForm();
+    } else {
+      alert('Please fill out all the fields.');
+    }
+}
